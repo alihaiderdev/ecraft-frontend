@@ -1,5 +1,5 @@
-import axios from "axios";
-import { authConstants } from "./authConstants";
+import axios from 'axios';
+import { authConstants } from './authConstants';
 
 export const signup =
   ({ name, email, password, passwordConfirm, role }) =>
@@ -7,15 +7,15 @@ export const signup =
     try {
       var {
         data: {
-          data: { user } = {},
+          data: { user },
         },
-      } = await axios.post(`/auth/signup`, { username: name, email, password, passwordConfirm, role  });
+      } = await axios.post(`/auth/signup`, { username: name, email, password, passwordConfirm, role });
       dispatch({
         type: authConstants.SET_USER,
         payload: {
-          user
-        }
-      })
+          user,
+        },
+      });
     } catch (error) {
       console.log(error.response.data.error);
     }
@@ -25,20 +25,24 @@ export const login =
   ({ email, password }) =>
   async (dispatch) => {
     try {
-      var {data: {data: {user}}} = await axios.post(`/auth/login`, { email, password });
+      var {
+        data: {
+          data: { user },
+        },
+      } = await axios.post(`/auth/login`, { email, password });
       dispatch({
         type: authConstants.SET_USER,
         payload: {
-          user
-        }
-      })
+          user,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  export const logout = () => async (dispatch) => {
-    dispatch({
-      type: authConstants.REMOVE_USER,
-    })
-  }
+export const logout = () => async (dispatch) => {
+  dispatch({
+    type: authConstants.REMOVE_USER,
+  });
+};
