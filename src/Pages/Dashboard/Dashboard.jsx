@@ -9,12 +9,21 @@ const Dashboard = ({ user }) => {
 
     //setting up noticfication listener
     socket.on('notification', (data) => {
-      console.log(data);
+      console.log('notification : ', data);
+    });
+
+    //setting up message listener
+    socket.on('message', (data) => {
+      console.log('message : ', data);
     });
 
     //CWU
     return () => {
-      console.log('CWU');
+      // events off/disconnect
+      socket.off('notification');
+      socket.off('message');
+
+      // socket off/disconnect
       socket.disconnect(); // socket.emit("disconnect")
     };
   }, []);
